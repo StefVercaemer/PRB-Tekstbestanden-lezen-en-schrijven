@@ -22,6 +22,7 @@ namespace TextBestanden.Wpf
     public partial class MainWindow : Window
     {
         Read bestand = new Read();
+        List<string[]> personen2;
 
         public MainWindow()
         {
@@ -37,7 +38,7 @@ namespace TextBestanden.Wpf
                 lstLinks.Items.Add(persoon);
             }
 
-            List<string[]> personen2 = bestand.ToStringArray_List(bestandsPad, '|');
+            personen2 = bestand.ToStringArray_List(bestandsPad, '|');
             foreach (string[] persoon in personen2)
             {
                 lstRechts.Items.Add(String.Join(" - ", persoon));
@@ -47,6 +48,18 @@ namespace TextBestanden.Wpf
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             HaalInfoOp(bestand.rootPad + "Personen.txt");
+        }
+
+        private void lstLinks_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            txtPersoon.Text = lstLinks.SelectedValue.ToString();
+        }
+
+        private void lstRechts_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            int index = lstRechts.SelectedIndex;
+            txtNaam.Text = personen2[index][0];
+            txtVoornaam.Text = personen2[index][1];
         }
     }
 }
