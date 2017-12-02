@@ -21,24 +21,28 @@ namespace TextBestanden.Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        Read bestand = new Read();
+        Read leesBewerking = new Read();
+        List<string> personen1;
         List<string[]> personen2;
+        int index1, index2;
 
         public MainWindow()
         {
             InitializeComponent();
-            HaalInfoOp(bestand.rootPad + "Personen.txt");
+            HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
         }
 
         void HaalInfoOp(string bestandsPad)
         {
-            List<string> personen1 = bestand.ToStringList(bestandsPad);
+            lstLinks.Items.Clear();
+            personen1 = leesBewerking.ToStringList(bestandsPad);
             foreach (string persoon in personen1)
             {
                 lstLinks.Items.Add(persoon);
             }
 
-            personen2 = bestand.ToStringArray_List(bestandsPad, '|');
+            lstRechts.Items.Clear();
+            personen2 = leesBewerking.ToStringArray_List(bestandsPad, '|');
             foreach (string[] persoon in personen2)
             {
                 lstRechts.Items.Add(String.Join(" - ", persoon));
@@ -47,19 +51,40 @@ namespace TextBestanden.Wpf
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            HaalInfoOp(bestand.rootPad + "Personen.txt");
+            HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
         }
 
         private void lstLinks_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            index1 = lstLinks.SelectedIndex;
             txtPersoon.Text = lstLinks.SelectedValue.ToString();
         }
 
         private void lstRechts_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            int index = lstRechts.SelectedIndex;
-            txtNaam.Text = personen2[index][0];
-            txtVoornaam.Text = personen2[index][1];
+            index2 = lstRechts.SelectedIndex;
+            txtNaam.Text = personen2[index2][0];
+            txtVoornaam.Text = personen2[index2][1];
+        }
+
+        private void btnSaveStringArray_Click(object sender, RoutedEventArgs e)
+        {
+            personen2[index2][0] = txtNaam.Text  ;
+            personen2[index2][1] = txtVoornaam.Text;
+            Write schrijfBewerking = new Write();
+            schrijfBewerking.SchrijfListVanArrays(personen2, leesBewerking.rootPad + "Personen.txt", "|");
+            HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
+            txtNaam.Text = "";
+            txtVoornaam.Text = "";
+        }
+
+        private void btnSaveString_Click(object sender, RoutedEventArgs e)
+        {
+            personen1[index1] = txtPersoon.Text;
+            Write schrijfBewerking = new Write();
+            schrijfBewerking.SchrijfListVanStrings(personen1,leesBewerking.rootPad + "Personen.txt");
+            HaalInfoOp(leesBewerking.rootPad + "Personen.txt"); 
+
         }
     }
 }
