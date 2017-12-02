@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TextFiles;
 
 namespace TextBestanden.Wpf
 {
@@ -20,9 +21,32 @@ namespace TextBestanden.Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        Read bestand = new Read();
+
         public MainWindow()
         {
             InitializeComponent();
+            HaalInfoOp(bestand.rootPad + "Personen.txt");
+        }
+
+        void HaalInfoOp(string bestandsPad)
+        {
+            List<string> personen1 = bestand.ToStringList(bestandsPad);
+            foreach (string persoon in personen1)
+            {
+                lstLinks.Items.Add(persoon);
+            }
+
+            List<string[]> personen2 = bestand.ToStringArray_List(bestandsPad, '|');
+            foreach (string[] persoon in personen2)
+            {
+                lstRechts.Items.Add(String.Join(" - ", persoon));
+            }
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            HaalInfoOp(bestand.rootPad + "Personen.txt");
         }
     }
 }
