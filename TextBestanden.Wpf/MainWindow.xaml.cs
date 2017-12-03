@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TextFiles;
+using Personen;
 
 namespace TextBestanden.Wpf
 {
@@ -24,7 +25,9 @@ namespace TextBestanden.Wpf
         Read leesBewerking = new Read();
         List<string> personen1;
         List<string[]> personen2;
-        int index1, index2;
+        List<Persoon> klasseMensen;
+        Persoon aangekliktePersoon;
+        int index1, index2, index3;
 
         public MainWindow()
         {
@@ -49,6 +52,22 @@ namespace TextBestanden.Wpf
             }
         }
 
+        void ToonListVanClass()
+        {
+            lstClass.Items.Clear();
+            foreach (Persoon persoon in klasseMensen)
+            {
+                lstClass.Items.Add(persoon);
+            }
+        }
+
+        void SlaPersonenOp(List<string[]> personenLijst)
+        {
+            Write schrijfBewerking = new Write();
+            schrijfBewerking.SchrijfListVanArrays(personenLijst, leesBewerking.rootPad + "Personen.txt", "|");
+            HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
+        }
+
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
@@ -71,11 +90,69 @@ namespace TextBestanden.Wpf
         {
             personen2[index2][0] = txtNaam.Text  ;
             personen2[index2][1] = txtVoornaam.Text;
-            Write schrijfBewerking = new Write();
-            schrijfBewerking.SchrijfListVanArrays(personen2, leesBewerking.rootPad + "Personen.txt", "|");
-            HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
+            SlaPersonenOp(personen2);
             txtNaam.Text = "";
             txtVoornaam.Text = "";
+        }
+
+
+
+        private void btnLoadClass_Click(object sender, RoutedEventArgs e)
+        {
+            klasseMensen = new List<Persoon>();
+            List < string[] > personen = leesBewerking.ToStringArray_List(leesBewerking.rootPad + "Personen.txt", '|');
+            foreach (string[] persoon in personen)
+            {
+                Persoon mens = new Persoon();
+                mens.Familienaam = persoon[0];
+                mens.Voornaam = persoon[1];
+                mens.Woonplaats = persoon[2];
+                mens.Land = persoon[3];
+                if (persoon[4] == "M")
+                {
+                    mens.Geslacht = Persoon.Geslachten.M;
+                }
+                else
+                {
+                    mens.Geslacht = Persoon.Geslachten.V;
+                }
+                mens.Leeftijd = int.Parse(persoon[5]);
+                klasseMensen.Add(mens);
+            }
+            ToonListVanClass();
+        }
+
+        private void lstClass_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            index3 = lstClass.SelectedIndex;
+            aangekliktePersoon = new Persoon();
+
+            aangekliktePersoon = klasseMensen[index3];
+            txtNaam_Class.Text = aangekliktePersoon.Familienaam;
+            txtVoornaam_Class.Text = aangekliktePersoon.Voornaam;
+        }
+
+        private void btnSaveList_Class_Click(object sender, RoutedEventArgs e)
+        {
+            aangekliktePersoon.Familienaam = txtNaam_Class.Text ;
+            aangekliktePersoon.Voornaam = txtVoornaam_Class.Text;
+            ToonListVanClass();
+            List<string[]> personen3 = new List<string[]>();
+            foreach (Persoon persoon in klasseMensen)
+            {
+                int i = 0;
+                string[] dezePersoon = new string[6];
+                dezePersoon[i] = persoon.Familienaam;
+                dezePersoon[i++] = persoon.Voornaam;
+                dezePersoon[i++] = persoon.Woonplaats;
+                dezePersoon[i++] = persoon.Land;
+                dezePersoon[i++] = persoon.Geslacht.ToString();
+                dezePersoon[i++] = persoon.Leeftijd.ToString();
+                personen3.Add(dezePersoon);
+            }
+            SlaPersonenOp(personen3);
+            txtNaam_Class.Text = "";
+            txtVoornaam_Class.Text = "";
         }
 
         private void btnSaveString_Click(object sender, RoutedEventArgs e)

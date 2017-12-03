@@ -94,6 +94,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Personen\Personen.csproj">
+      <Project>{4d31567d-2fec-4389-ae12-1d61293ca2c5}</Project>
+      <Name>Personen</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TextFiles\TextFiles.csproj">
       <Project>{2fdc2550-6ac2-4547-819e-4164ca31f3d0}</Project>
       <Name>TextFiles</Name>

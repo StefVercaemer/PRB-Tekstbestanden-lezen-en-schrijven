@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TextBestanden.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="441" Width="846">
+        Title="MainWindow" Height="506" Width="1261">
     <Grid>
         <ListBox x:Name="lstLinks" HorizontalAlignment="Left" Height="271" Margin="10,45,0,0" VerticalAlignment="Top" Width="330" MouseLeftButtonUp="lstLinks_MouseLeftButtonUp"/>
         <ListBox x:Name="lstRechts" HorizontalAlignment="Left" Height="271" Margin="421,45,0,0" VerticalAlignment="Top" Width="330" MouseLeftButtonUp="lstRechts_MouseLeftButtonUp"/>
@@ -29,6 +29,23 @@
             </Button.Background>
 
         </Button>
+        <ListBox x:Name="lstClass" HorizontalAlignment="Left" Height="271" Margin="808,45,0,0" VerticalAlignment="Top" Width="385" MouseLeftButtonUp="lstClass_MouseLeftButtonUp"/>
+        <Button x:Name="btnLoadClass" Content="Laad gegevens in classes" HorizontalAlignment="Left" Margin="808,6,0,0" VerticalAlignment="Top" Width="385" Height="34" Click="btnLoadClass_Click"/>
+        <WrapPanel HorizontalAlignment="Left" Height="67" Margin="810,321,0,0" VerticalAlignment="Top" Width="337">
+            <Label Content="Voornaam" Width="65"/>
+            <TextBox x:Name="txtVoornaam_Class" Height="23" TextWrapping="Wrap" Width="261" Margin="0,4,0,0"/>
+            <Label Content="Naam" Width="65"/>
+            <TextBox x:Name="txtNaam_Class" Height="23" TextWrapping="Wrap" Width="261" Margin="0,4,0,0"/>
+        </WrapPanel>
+        <Button x:Name="btnSaveList_Class" Content="" HorizontalAlignment="Left" Margin="1152,321,0,0" VerticalAlignment="Top" Width="41" Height="43" Click="btnSaveList_Class_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="Images/save_icon.png"/>
+            </Button.Background>
+
+        </Button>
+        <Button x:Name="btnVerjaar" Content="Verjaar" HorizontalAlignment="Left" Margin="810,388,0,0" VerticalAlignment="Top" Width="122" Height="34"/>
+        <Label Content="Verhuis naar:" HorizontalAlignment="Left" Margin="937,388,0,0" VerticalAlignment="Top" Width="79"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="937,422,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>
