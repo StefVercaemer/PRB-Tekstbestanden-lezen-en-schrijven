@@ -27,7 +27,7 @@ namespace TextBestanden.Wpf
         List<string[]> personen2;
         List<Persoon> klasseMensen;
         Persoon aangekliktePersoon;
-        int index1, index2, index3;
+        int indexListStrings, indexListArrays, indexClass;
 
         public MainWindow()
         {
@@ -100,21 +100,21 @@ namespace TextBestanden.Wpf
 
         private void lstLinks_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            index1 = lstLinks.SelectedIndex;
+            indexListStrings = lstLinks.SelectedIndex;
             txtPersoon.Text = lstLinks.SelectedValue.ToString();
         }
 
         private void lstMidden_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            index2 = lstMidden.SelectedIndex;
-            txtNaam.Text = personen2[index2][0];
-            txtVoornaam.Text = personen2[index2][1];
+            indexListArrays = lstMidden.SelectedIndex;
+            txtNaam.Text = personen2[indexListArrays][0];
+            txtVoornaam.Text = personen2[indexListArrays][1];
         }
 
         private void btnSaveStringArray_Click(object sender, RoutedEventArgs e)
         {
-            personen2[index2][0] = txtNaam.Text  ;
-            personen2[index2][1] = txtVoornaam.Text;
+            personen2[indexListArrays][0] = txtNaam.Text  ;
+            personen2[indexListArrays][1] = txtVoornaam.Text;
             SlaPersonenOp(personen2);
             txtNaam.Text = "";
             txtVoornaam.Text = "";
@@ -122,10 +122,10 @@ namespace TextBestanden.Wpf
 
         private void lstClass_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            index3 = lstClass.SelectedIndex;
+            indexClass = lstClass.SelectedIndex;
             aangekliktePersoon = new Persoon();
 
-            aangekliktePersoon = klasseMensen[index3];
+            aangekliktePersoon = klasseMensen[indexClass];
             txtNaam_Class.Text = aangekliktePersoon.Familienaam;
             txtVoornaam_Class.Text = aangekliktePersoon.Voornaam;
             txtNieuweGemeente.Text = aangekliktePersoon.Woonplaats;
@@ -134,17 +134,17 @@ namespace TextBestanden.Wpf
 
         private void txtNieuweGemeente_TextChanged(object sender, TextChangedEventArgs e)
         {
-            klasseMensen[index3].Woonplaats = txtNieuweGemeente.Text;
+            klasseMensen[indexClass].Woonplaats = txtNieuweGemeente.Text;
         }
 
         private void txtNieuweGemeente_LostFocus(object sender, RoutedEventArgs e)
         {
-            klasseMensen[index3].Verhuis(txtNieuweGemeente.Text, txtNieuwLand.Text);
-            int huidigeIndex = index3;
+            klasseMensen[indexClass].Verhuis(txtNieuweGemeente.Text, txtNieuwLand.Text);
+            int huidigeIndex = indexClass;
             ClassListOpslaan();
             //ToonListVanClass();
             HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
-            index3 = huidigeIndex;
+            indexClass = huidigeIndex;
 
         }
 
@@ -160,14 +160,14 @@ namespace TextBestanden.Wpf
 
         private void btnVerjaar_Click(object sender, RoutedEventArgs e)
         {
-            klasseMensen[index3].Verjaar();
+            klasseMensen[indexClass].Verjaar();
             ClassListOpslaan();
             ToonListVanClass();
         }
 
         private void btnSaveWoonplaats_Click(object sender, RoutedEventArgs e)
         {
-            klasseMensen[index3].Verhuis(txtNieuweGemeente.Text, txtNieuwLand.Text);
+            klasseMensen[indexClass].Verhuis(txtNieuweGemeente.Text, txtNieuwLand.Text);
             ClassListOpslaan();
             HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
         }
@@ -192,7 +192,7 @@ namespace TextBestanden.Wpf
 
         private void btnSaveString_Click(object sender, RoutedEventArgs e)
         {
-            personen1[index1] = txtPersoon.Text;
+            personen1[indexListStrings] = txtPersoon.Text;
             Write schrijfBewerking = new Write();
             schrijfBewerking.SchrijfListVanStrings(personen1,leesBewerking.rootPad + "Personen.txt");
             HaalInfoOp(leesBewerking.rootPad + "Personen.txt"); 

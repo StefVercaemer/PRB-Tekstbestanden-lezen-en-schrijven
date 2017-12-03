@@ -50,7 +50,7 @@ namespace Personen
 
         public void Verhuis(string nieuweGemeente, string nieuwLand)
         {
-            Woonplaats = nieuweGemeente;
+            Woonplaats = nieuweGemeente.ToUpper();
             Land = nieuwLand;
         }
     }
