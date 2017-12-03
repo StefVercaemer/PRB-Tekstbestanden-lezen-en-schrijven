@@ -43,9 +43,12 @@
             </Button.Background>
 
         </Button>
-        <Button x:Name="btnVerjaar" Content="Verjaar" HorizontalAlignment="Left" Margin="810,388,0,0" VerticalAlignment="Top" Width="122" Height="34"/>
+        <Button x:Name="btnVerjaar" Content="Verjaar" HorizontalAlignment="Left" Margin="810,388,0,0" VerticalAlignment="Top" Width="122" Height="34" Click="btnVerjaar_Click"/>
         <Label Content="Verhuis naar:" HorizontalAlignment="Left" Margin="937,388,0,0" VerticalAlignment="Top" Width="79"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="937,422,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtNieuweGemeente" HorizontalAlignment="Left" Height="23" Margin="1021,393,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" LostFocus="txtNieuweGemeente_LostFocus"/>
+        <TextBox x:Name="txtNieuwLand" HorizontalAlignment="Left" Height="23" Margin="1021,421,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" LostFocus="txtNieuweGemeente_LostFocus"/>
+        <Label Content="Plaats" HorizontalAlignment="Left" Margin="1193,393,0,0" VerticalAlignment="Top" Width="50"/>
+        <Label Content="Land" HorizontalAlignment="Left" Margin="1193,419,0,0" VerticalAlignment="Top" Width="50"/>
 
     </Grid>
 </Window>

@@ -132,11 +132,39 @@ namespace TextBestanden.Wpf
             txtVoornaam_Class.Text = aangekliktePersoon.Voornaam;
         }
 
+        private void txtNieuweGemeente_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            klasseMensen[index3].Woonplaats = txtNieuweGemeente.Text;
+        }
+
+        private void txtNieuweGemeente_LostFocus(object sender, RoutedEventArgs e)
+        {
+            klasseMensen[index3].Verhuis(txtNieuweGemeente.Text, txtNieuwLand.Text);
+
+            ClassListOpslaan();
+            ToonListVanClass();
+            HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
+
+        }
+
         private void btnSaveList_Class_Click(object sender, RoutedEventArgs e)
         {
             aangekliktePersoon.Familienaam = txtNaam_Class.Text ;
             aangekliktePersoon.Voornaam = txtVoornaam_Class.Text;
             ToonListVanClass();
+            ClassListOpslaan();
+            txtNaam_Class.Text = "";
+            txtVoornaam_Class.Text = "";
+        }
+
+        private void btnVerjaar_Click(object sender, RoutedEventArgs e)
+        {
+            klasseMensen[index3].Verjaar();
+            ToonListVanClass();
+        }
+
+        void ClassListOpslaan()
+        {
             List<string[]> personen3 = new List<string[]>();
             foreach (Persoon persoon in klasseMensen)
             {
@@ -151,8 +179,6 @@ namespace TextBestanden.Wpf
                 personen3.Add(dezePersoon);
             }
             SlaPersonenOp(personen3);
-            txtNaam_Class.Text = "";
-            txtVoornaam_Class.Text = "";
         }
 
         private void btnSaveString_Click(object sender, RoutedEventArgs e)
