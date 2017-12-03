@@ -21,6 +21,8 @@ namespace Personen
         public override string ToString()
         {
             string aanspreking;
+            string land;
+
             if (Geslacht == Geslachten.M)
             {
                 aanspreking = "De heer"; 
@@ -29,7 +31,16 @@ namespace Personen
             {
                 aanspreking = "Mevrouw";
             }
-            return $"{aanspreking} {Voornaam} {Familienaam} uit {Woonplaats} ({Land.Substring(0,1)}) {Leeftijd} jaar";
+            if (Land.Length >0)
+            {
+                land = Land.Substring(0, 1);
+            }
+            else
+            {
+                land = "";
+            }
+
+            return $"{aanspreking} {Voornaam} {Familienaam} uit {Woonplaats} ({land}) {Leeftijd} jaar";
         }
 
         public void Verjaar()

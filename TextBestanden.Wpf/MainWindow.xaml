@@ -5,50 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TextBestanden.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="506" Width="1261">
+        Title="MainWindow" Height="555" Width="1324">
     <Grid>
         <ListBox x:Name="lstLinks" HorizontalAlignment="Left" Height="271" Margin="10,45,0,0" VerticalAlignment="Top" Width="330" MouseLeftButtonUp="lstLinks_MouseLeftButtonUp"/>
-        <ListBox x:Name="lstRechts" HorizontalAlignment="Left" Height="271" Margin="421,45,0,0" VerticalAlignment="Top" Width="330" MouseLeftButtonUp="lstRechts_MouseLeftButtonUp"/>
+        <ListBox x:Name="lstMidden" HorizontalAlignment="Left" Height="271" Margin="421,45,0,0" VerticalAlignment="Top" Width="330" MouseLeftButtonUp="lstMidden_MouseLeftButtonUp"/>
         <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="12,9,0,0" VerticalAlignment="Top" Width="75" Click="btnRefresh_Click"/>
         <TextBox x:Name="txtPersoon" HorizontalAlignment="Left" Height="23" Margin="10,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="330"/>
-        <WrapPanel HorizontalAlignment="Left" Height="67" Margin="421,321,0,0" VerticalAlignment="Top" Width="330">
+        <WrapPanel HorizontalAlignment="Left" Height="67" Margin="421,325,0,0" VerticalAlignment="Top" Width="330">
             <Label Content="Voornaam" Width="65"/>
             <TextBox x:Name="txtVoornaam" Height="23" TextWrapping="Wrap" Width="261" Margin="0,4,0,0"/>
             <Label Content="Naam" Width="65"/>
             <TextBox x:Name="txtNaam" Height="23" TextWrapping="Wrap" Width="261" Margin="0,4,0,0"/>
         </WrapPanel>
-        <Button x:Name="btnSaveString" Content="" HorizontalAlignment="Left" Margin="345,321,0,0" VerticalAlignment="Top" Width="40" Height="43" Click="btnSaveString_Click">
+        <Button x:Name="btnSaveString" Content="" HorizontalAlignment="Left" Margin="345,325,0,0" VerticalAlignment="Top" Width="40" Height="43" Click="btnSaveString_Click">
             <Button.Background>
                 <ImageBrush ImageSource="Images/save_icon.png"/>
             </Button.Background>
 
         </Button>
-        <Button x:Name="btnSaveStringArray" Content="" HorizontalAlignment="Left" Margin="756,321,0,0" VerticalAlignment="Top" Width="40" Height="43" Click="btnSaveStringArray_Click">
+        <Button x:Name="btnSaveStringArray" Content="" HorizontalAlignment="Left" Margin="756,325,0,0" VerticalAlignment="Top" Width="40" Height="43" Click="btnSaveStringArray_Click">
             <Button.Background>
                 <ImageBrush ImageSource="Images/save_icon.png"/>
             </Button.Background>
 
         </Button>
         <ListBox x:Name="lstClass" HorizontalAlignment="Left" Height="271" Margin="808,45,0,0" VerticalAlignment="Top" Width="385" MouseLeftButtonUp="lstClass_MouseLeftButtonUp"/>
-        <Button x:Name="btnLoadClass" Content="Laad gegevens in classes" HorizontalAlignment="Left" Margin="808,6,0,0" VerticalAlignment="Top" Width="385" Height="34" Click="btnLoadClass_Click"/>
         <WrapPanel HorizontalAlignment="Left" Height="67" Margin="810,321,0,0" VerticalAlignment="Top" Width="337">
             <Label Content="Voornaam" Width="65"/>
             <TextBox x:Name="txtVoornaam_Class" Height="23" TextWrapping="Wrap" Width="261" Margin="0,4,0,0"/>
             <Label Content="Naam" Width="65"/>
             <TextBox x:Name="txtNaam_Class" Height="23" TextWrapping="Wrap" Width="261" Margin="0,4,0,0"/>
         </WrapPanel>
-        <Button x:Name="btnSaveList_Class" Content="" HorizontalAlignment="Left" Margin="1152,321,0,0" VerticalAlignment="Top" Width="41" Height="43" Click="btnSaveList_Class_Click">
+        <Button x:Name="btnSaveList_Class" Content="" HorizontalAlignment="Left" Margin="1152,325,0,0" VerticalAlignment="Top" Width="41" Height="43" Click="btnSaveList_Class_Click">
             <Button.Background>
                 <ImageBrush ImageSource="Images/save_icon.png"/>
             </Button.Background>
 
         </Button>
-        <Button x:Name="btnVerjaar" Content="Verjaar" HorizontalAlignment="Left" Margin="810,388,0,0" VerticalAlignment="Top" Width="122" Height="34" Click="btnVerjaar_Click"/>
-        <Label Content="Verhuis naar:" HorizontalAlignment="Left" Margin="937,388,0,0" VerticalAlignment="Top" Width="79"/>
-        <TextBox x:Name="txtNieuweGemeente" HorizontalAlignment="Left" Height="23" Margin="1021,393,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" LostFocus="txtNieuweGemeente_LostFocus"/>
-        <TextBox x:Name="txtNieuwLand" HorizontalAlignment="Left" Height="23" Margin="1021,421,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" LostFocus="txtNieuweGemeente_LostFocus"/>
-        <Label Content="Plaats" HorizontalAlignment="Left" Margin="1193,393,0,0" VerticalAlignment="Top" Width="50"/>
-        <Label Content="Land" HorizontalAlignment="Left" Margin="1193,419,0,0" VerticalAlignment="Top" Width="50"/>
+        <Button x:Name="btnVerjaar" Content="Verjaardag" HorizontalAlignment="Left" Margin="810,388,0,0" VerticalAlignment="Top" Width="122" Height="34" Click="btnVerjaar_Click"/>
+        <Label Content="Verhuis naar:" HorizontalAlignment="Left" Margin="812,429,0,0" VerticalAlignment="Top" Width="79"/>
+        <TextBox x:Name="txtNieuweGemeente" HorizontalAlignment="Left" Height="23" Margin="968,435,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+        <TextBox x:Name="txtNieuwLand" HorizontalAlignment="Left" Height="23" Margin="968,463,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+        <Label Content="Plaats" HorizontalAlignment="Left" Margin="913,435,0,0" VerticalAlignment="Top" Width="50"/>
+        <Label Content="Land" HorizontalAlignment="Left" Margin="913,460,0,0" VerticalAlignment="Top" Width="50"/>
+        <Button x:Name="btnSaveWoonplaats" Content="" HorizontalAlignment="Left" Margin="1152,435,0,0" VerticalAlignment="Top" Width="41" Height="43" Click="btnSaveWoonplaats_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="Images/save_icon.png"/>
+            </Button.Background>
+
+        </Button>
 
     </Grid>
 </Window>

@@ -37,6 +37,7 @@ namespace TextBestanden.Wpf
 
         void HaalInfoOp(string bestandsPad)
         {
+            //Tekstbestand ==> List<string>
             lstLinks.Items.Clear();
             personen1 = leesBewerking.ToStringList(bestandsPad);
             foreach (string persoon in personen1)
@@ -44,12 +45,36 @@ namespace TextBestanden.Wpf
                 lstLinks.Items.Add(persoon);
             }
 
-            lstRechts.Items.Clear();
+            //Tekstbestand ==> List<string[]>
+            lstMidden.Items.Clear();
             personen2 = leesBewerking.ToStringArray_List(bestandsPad, '|');
             foreach (string[] persoon in personen2)
             {
-                lstRechts.Items.Add(String.Join(" - ", persoon));
+                lstMidden.Items.Add(String.Join(" - ", persoon));
             }
+
+            //Tekstbestand ==> List<Persoon>
+            klasseMensen = new List<Persoon>();
+            //List<string[]> personen = leesBewerking.ToStringArray_List(leesBewerking.rootPad + "Personen.txt", '|');
+            foreach (string[] persoon in personen2)
+            {
+                Persoon mens = new Persoon();
+                mens.Familienaam = persoon[0];
+                mens.Voornaam = persoon[1];
+                mens.Woonplaats = persoon[2];
+                mens.Land = persoon[3];
+                if (persoon[4] == "M")
+                {
+                    mens.Geslacht = Persoon.Geslachten.M;
+                }
+                else
+                {
+                    mens.Geslacht = Persoon.Geslachten.V;
+                }
+                mens.Leeftijd = int.Parse(persoon[5]);
+                klasseMensen.Add(mens);
+            }
+            ToonListVanClass();
         }
 
         void ToonListVanClass()
@@ -79,9 +104,9 @@ namespace TextBestanden.Wpf
             txtPersoon.Text = lstLinks.SelectedValue.ToString();
         }
 
-        private void lstRechts_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void lstMidden_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            index2 = lstRechts.SelectedIndex;
+            index2 = lstMidden.SelectedIndex;
             txtNaam.Text = personen2[index2][0];
             txtVoornaam.Text = personen2[index2][1];
         }
@@ -95,33 +120,6 @@ namespace TextBestanden.Wpf
             txtVoornaam.Text = "";
         }
 
-
-
-        private void btnLoadClass_Click(object sender, RoutedEventArgs e)
-        {
-            klasseMensen = new List<Persoon>();
-            List < string[] > personen = leesBewerking.ToStringArray_List(leesBewerking.rootPad + "Personen.txt", '|');
-            foreach (string[] persoon in personen)
-            {
-                Persoon mens = new Persoon();
-                mens.Familienaam = persoon[0];
-                mens.Voornaam = persoon[1];
-                mens.Woonplaats = persoon[2];
-                mens.Land = persoon[3];
-                if (persoon[4] == "M")
-                {
-                    mens.Geslacht = Persoon.Geslachten.M;
-                }
-                else
-                {
-                    mens.Geslacht = Persoon.Geslachten.V;
-                }
-                mens.Leeftijd = int.Parse(persoon[5]);
-                klasseMensen.Add(mens);
-            }
-            ToonListVanClass();
-        }
-
         private void lstClass_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             index3 = lstClass.SelectedIndex;
@@ -130,6 +128,8 @@ namespace TextBestanden.Wpf
             aangekliktePersoon = klasseMensen[index3];
             txtNaam_Class.Text = aangekliktePersoon.Familienaam;
             txtVoornaam_Class.Text = aangekliktePersoon.Voornaam;
+            txtNieuweGemeente.Text = aangekliktePersoon.Woonplaats;
+            txtNieuwLand.Text = aangekliktePersoon.Land;
         }
 
         private void txtNieuweGemeente_TextChanged(object sender, TextChangedEventArgs e)
@@ -140,10 +140,11 @@ namespace TextBestanden.Wpf
         private void txtNieuweGemeente_LostFocus(object sender, RoutedEventArgs e)
         {
             klasseMensen[index3].Verhuis(txtNieuweGemeente.Text, txtNieuwLand.Text);
-
+            int huidigeIndex = index3;
             ClassListOpslaan();
-            ToonListVanClass();
+            //ToonListVanClass();
             HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
+            index3 = huidigeIndex;
 
         }
 
@@ -160,7 +161,15 @@ namespace TextBestanden.Wpf
         private void btnVerjaar_Click(object sender, RoutedEventArgs e)
         {
             klasseMensen[index3].Verjaar();
+            ClassListOpslaan();
             ToonListVanClass();
+        }
+
+        private void btnSaveWoonplaats_Click(object sender, RoutedEventArgs e)
+        {
+            klasseMensen[index3].Verhuis(txtNieuweGemeente.Text, txtNieuwLand.Text);
+            ClassListOpslaan();
+            HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
         }
 
         void ClassListOpslaan()
@@ -170,7 +179,7 @@ namespace TextBestanden.Wpf
             {
                 int i = 0;
                 string[] dezePersoon = new string[6];
-                dezePersoon[i] = persoon.Familienaam;
+                dezePersoon[i++] = persoon.Familienaam;
                 dezePersoon[i++] = persoon.Voornaam;
                 dezePersoon[i++] = persoon.Woonplaats;
                 dezePersoon[i++] = persoon.Land;
