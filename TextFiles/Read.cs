@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.Win32;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TextFiles
 {
@@ -36,7 +37,15 @@ namespace TextFiles
 
             // Toon het dialoogvenster
             Nullable<bool> result = kiesBestand.ShowDialog();
-            gekozenBestandsPad = kiesBestand.FileName;
+            try
+            {
+                gekozenBestandsPad = kiesBestand.FileName;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Geen bestand gekozen", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             return gekozenBestandsPad;
         }
 
@@ -73,9 +82,17 @@ namespace TextFiles
         {
             string[] temp;
 
-            using (var sr = new StreamReader(path, System.Text.Encoding.Default, true))
+            try
             {
-                temp = sr.ReadToEnd().Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                using (var sr = new StreamReader(path, System.Text.Encoding.Default, true))
+                {
+                    temp = sr.ReadToEnd().Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                }                
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"Het opgegeven bestand {path} \nbestaat niet", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                temp = new string[] { "" };
             }
 
             return temp.ToList();
