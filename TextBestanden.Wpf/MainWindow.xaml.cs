@@ -40,41 +40,44 @@ namespace TextBestanden.Wpf
             //Tekstbestand ==> List<string>
             lstLinks.Items.Clear();
             personen1 = leesBewerking.ToStringList(bestandsPad);
-            foreach (string persoon in personen1)
+            if (personen1.Count > 1 || personen1[0] != "")
             {
-                lstLinks.Items.Add(persoon);
-            }
-
-            //Tekstbestand ==> List<string[]>
-            lstMidden.Items.Clear();
-            personen2 = leesBewerking.ToStringArray_List(bestandsPad, '|');
-            foreach (string[] persoon in personen2)
-            {
-                lstMidden.Items.Add(String.Join(" - ", persoon));
-            }
-
-            //Tekstbestand ==> List<Persoon>
-            klasseMensen = new List<Persoon>();
-            //List<string[]> personen = leesBewerking.ToStringArray_List(leesBewerking.rootPad + "Personen.txt", '|');
-            foreach (string[] persoon in personen2)
-            {
-                Persoon mens = new Persoon();
-                mens.Familienaam = persoon[0];
-                mens.Voornaam = persoon[1];
-                mens.Woonplaats = persoon[2];
-                mens.Land = persoon[3];
-                if (persoon[4] == "M")
+                foreach (string persoon in personen1)
                 {
-                    mens.Geslacht = Persoon.Geslachten.M;
+                    lstLinks.Items.Add(persoon);
                 }
-                else
+
+                //Tekstbestand ==> List<string[]>
+                lstMidden.Items.Clear();
+                personen2 = leesBewerking.ToStringArray_List(bestandsPad, '|');
+                foreach (string[] persoon in personen2)
                 {
-                    mens.Geslacht = Persoon.Geslachten.V;
+                    lstMidden.Items.Add(String.Join(" - ", persoon));
                 }
-                mens.Leeftijd = int.Parse(persoon[5]);
-                klasseMensen.Add(mens);
+
+                //Tekstbestand ==> List<Persoon>
+                klasseMensen = new List<Persoon>();
+                //List<string[]> personen = leesBewerking.ToStringArray_List(leesBewerking.rootPad + "Personen.txt", '|');
+                foreach (string[] persoon in personen2)
+                {
+                    Persoon mens = new Persoon();
+                    mens.Familienaam = persoon[0];
+                    mens.Voornaam = persoon[1];
+                    mens.Woonplaats = persoon[2];
+                    mens.Land = persoon[3];
+                    if (persoon[4] == "M")
+                    {
+                        mens.Geslacht = Persoon.Geslachten.M;
+                    }
+                    else
+                    {
+                        mens.Geslacht = Persoon.Geslachten.V;
+                    }
+                    mens.Leeftijd = int.Parse(persoon[5]);
+                    klasseMensen.Add(mens);
+                }
+                ToonListVanClass();
             }
-            ToonListVanClass();
         }
 
         void ToonListVanClass()
@@ -86,10 +89,17 @@ namespace TextBestanden.Wpf
             }
         }
 
-        void SlaPersonenOp(List<string[]> personenLijst)
+        void SlaPersonenOp(List<string[]> personenLijst, string separator)
         {
             WriteService schrijfBewerking = new WriteService();
-            schrijfBewerking.SchrijfListVanArrays(personenLijst, leesBewerking.rootPad + "Personen.txt", "|");
+            schrijfBewerking.SchrijfListVanArrays(personenLijst, leesBewerking.rootPad + "Personen.txt", separator);
+            HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
+        }
+
+        void SlaPersonenOp(List<string[]> personenLijst, string bestandsPad, string separator)
+        {
+            WriteService schrijfBewerking = new WriteService();
+            schrijfBewerking.SchrijfListVanArrays(personenLijst, bestandsPad, separator);
             HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
         }
 
@@ -115,7 +125,7 @@ namespace TextBestanden.Wpf
         {
             personen2[indexListArrays][0] = txtNaam.Text  ;
             personen2[indexListArrays][1] = txtVoornaam.Text;
-            SlaPersonenOp(personen2);
+            SlaPersonenOp(personen2, "|");
             txtNaam.Text = "";
             txtVoornaam.Text = "";
         }
@@ -172,6 +182,15 @@ namespace TextBestanden.Wpf
             HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
         }
 
+        private void btnOpenBestand_Click(object sender, RoutedEventArgs e)
+        {
+            ReadService gekozenBestand = new ReadService();
+
+            string bestandsPad = gekozenBestand.OpenBestand("Text documents (.txt)|*.txt|Comma seperated values (.csv)|*.csv");
+            personen2 = gekozenBestand.ToStringArray_List(bestandsPad, ';');
+            HaalInfoOp(bestandsPad);
+        }
+
         void ClassListOpslaan()
         {
             List<string[]> personen3 = new List<string[]>();
@@ -187,7 +206,7 @@ namespace TextBestanden.Wpf
                 dezePersoon[i++] = persoon.Leeftijd.ToString();
                 personen3.Add(dezePersoon);
             }
-            SlaPersonenOp(personen3);
+            SlaPersonenOp(personen3,leesBewerking.rootPad + "Personen.txt", "|");
         }
 
         private void btnSaveString_Click(object sender, RoutedEventArgs e)

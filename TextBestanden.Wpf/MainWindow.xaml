@@ -54,6 +54,7 @@
             </Button.Background>
 
         </Button>
+        <Button x:Name="btnOpenBestand" Content="Open Bestand" HorizontalAlignment="Left" Margin="112,9,0,0" VerticalAlignment="Top" Width="94" Click="btnOpenBestand_Click"/>
 
     </Grid>
 </Window>
