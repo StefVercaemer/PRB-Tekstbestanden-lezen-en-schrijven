@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextBestanden.Wpf", "TextBestanden.Wpf\TextBestanden.Wpf.csproj", "{7E7842F4-07C9-48D1-842D-162417E16DB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFiles", "TextFiles\TextFiles.csproj", "{2FDC2550-6AC2-4547-819E-4164CA31F3D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFilesLib", "TextFiles\TextFilesLib.csproj", "{2FDC2550-6AC2-4547-819E-4164CA31F3D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personen", "Personen\Personen.csproj", "{4D31567D-2FEC-4389-AE12-1D61293CA2C5}"
 EndProject

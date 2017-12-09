@@ -22,7 +22,7 @@ namespace TextBestanden.Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        Read leesBewerking = new Read();
+        ReadService leesBewerking = new ReadService();
         List<string> personen1;
         List<string[]> personen2;
         List<Persoon> klasseMensen;
@@ -88,7 +88,7 @@ namespace TextBestanden.Wpf
 
         void SlaPersonenOp(List<string[]> personenLijst)
         {
-            Write schrijfBewerking = new Write();
+            WriteService schrijfBewerking = new WriteService();
             schrijfBewerking.SchrijfListVanArrays(personenLijst, leesBewerking.rootPad + "Personen.txt", "|");
             HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
         }
@@ -193,7 +193,7 @@ namespace TextBestanden.Wpf
         private void btnSaveString_Click(object sender, RoutedEventArgs e)
         {
             personen1[indexListStrings] = txtPersoon.Text;
-            Write schrijfBewerking = new Write();
+            WriteService schrijfBewerking = new WriteService();
             schrijfBewerking.SchrijfListVanStrings(personen1,leesBewerking.rootPad + "Personen.txt");
             HaalInfoOp(leesBewerking.rootPad + "Personen.txt"); 
 

@@ -11,12 +11,12 @@ namespace TextFiles
 {
 
 
-    public class Read
+    public class ReadService
     {
         
         public string rootPad, myDocs;
 
-        public Read()
+        public ReadService()
         {
             rootPad = AppDomain.CurrentDomain.BaseDirectory;
             myDocs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

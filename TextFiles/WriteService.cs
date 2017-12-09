@@ -7,7 +7,7 @@ using System.IO;
 
 namespace TextFiles
 {
-    public class Write
+    public class WriteService
     {
         /// <summary>
         /// Een list van arrays van string wordt weggeschreven naar een tekstbestand
