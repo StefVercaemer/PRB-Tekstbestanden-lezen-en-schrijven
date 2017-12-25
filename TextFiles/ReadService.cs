@@ -9,8 +9,6 @@ using System.Windows;
 
 namespace TextFiles
 {
-
-
     public class ReadService
     {
         

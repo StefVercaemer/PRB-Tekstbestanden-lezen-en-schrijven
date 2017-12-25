@@ -33,6 +33,7 @@ namespace TextBestanden.Wpf
         {
             InitializeComponent();
             HaalInfoOp(leesBewerking.rootPad + "Personen.txt");
+
         }
 
         void HaalInfoOp(string bestandsPad)
@@ -67,11 +68,11 @@ namespace TextBestanden.Wpf
                     mens.Land = persoon[3];
                     if (persoon[4] == "M")
                     {
-                        mens.Geslacht = Persoon.Geslachten.M;
+                        //mens.Geslacht = Persoon.Geslacht.M;
                     }
                     else
                     {
-                        mens.Geslacht = Persoon.Geslachten.V;
+                        //mens.Geslacht = Persoon.Geslachten.V;
                     }
                     mens.Leeftijd = int.Parse(persoon[5]);
                     klasseMensen.Add(mens);

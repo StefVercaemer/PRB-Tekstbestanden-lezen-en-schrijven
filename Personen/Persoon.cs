@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace Personen
 {
+    public enum Geslacht { M, V }
 
     public class Persoon
     {
-        public enum Geslachten { M, V }
-
         public string Familienaam { get; set; }
         public string Voornaam { get; set; }
         public string Woonplaats { get; set; }
         public string Land { get; set; }
-        public Geslachten Geslacht { get; set; }
+        public Geslacht Geslacht { get; set; }
         public int Leeftijd { get; set; }
 
         public override string ToString()
@@ -23,7 +22,7 @@ namespace Personen
             string aanspreking;
             string land;
 
-            if (Geslacht == Geslachten.M)
+            if (Geslacht == Geslacht.M)
             {
                 aanspreking = "De heer"; 
             }
